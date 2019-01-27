@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ClickButton = (props) => {
+const ClickButton = () => {
     return (  
-        <div onClick={props.handleClick}>ClickButton</div>
+        <input type="submit" value="Submit" />
     );
 }
  

@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchCity = (props) => {
     return ( 
-        <div>SearchCity</div>
+        <input type="text" value={props.city} onChange={props.handleChange} />
      );
 }
  

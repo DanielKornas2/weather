@@ -3,17 +3,20 @@ import React, { Component } from 'react';
 import ClickButton from '../../components/ClickButton/ClickButton';
 import SearchCity from '../../components/SearchCity/SearchCity';
 
-const APIKey = '056d9a8cc94d2c14f06c00a9088864a5'
+const APIKey = 'd51e075ba6694ea2f6e480ed41f66ee7';
 
 class WeatherBox extends Component {
 
   state = {
-    city: "Kraków",
-    humidity: null,
-    sunrise: null,
-    sunset: null,
-    temperature: null,
-    wind: null
+    city: "",
+    isCityCorrect: true,
+    weather: {
+      humidity: null,
+      sunrise: null,
+      sunset: null,
+      temperature: null,
+      wind: null
+    } 
   }
 
   fetchData = () => {
@@ -32,30 +35,57 @@ class WeatherBox extends Component {
         const sunrise = new Date(result.sys.sunrise * 1000).toLocaleTimeString();
         const sunset = new Date(result.sys.sunset * 1000).toLocaleTimeString();
         this.setState({
-          humidity: result.main.humidity,
-          sunrise: sunrise,
-          sunset: sunset,
-          temperature: result.main.temp,
-          wind: result.wind.speed
+          isCityCorrect: true,
+          weather: {
+            humidity: result.main.humidity,
+            sunrise: sunrise,
+            sunset: sunset,
+            temperature: result.main.temp,
+            wind: result.wind.speed
+          }
         })
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        this.setState(prevState => ({
+          isCityCorrect: false,
+          city: prevState.city
+        }))
+        console.log(error)
+      })
   }
 
-  handleClick = () => {
-    console.log('works')
-    // this.fetchData();
+  handleChange = (e) => {
+    this.setState({
+      city: e.target.value
+    })
   }
 
-  componentDidMount(){
-    this.fetchData()
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('click')
+    
+    this.fetchData();
+    
   }
 
-  render() {
+   render() {
+
+    const {city, weather} = this.state;
     return (
       <div>
-        <SearchCity />
-        <ClickButton handleClick={this.handleClick} />
+        <form onSubmit={this.handleSubmit}>
+        <SearchCity city={city} handleChange={this.handleChange} />
+        <ClickButton />
+        </form>
+        {weather.humidity ? 
+          <ul>
+            <li>{city}</li>
+            <li>{weather.temperature}</li>
+            <li>{weather.humidity}%</li>
+          </ul>
+        :
+          <p>Podaj prawidłową nazwę miasta</p>
+        }
       </div>
     );
   }
