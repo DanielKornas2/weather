@@ -2,7 +2,7 @@ import React from 'react';
 
 const ClickButton = (props) => {
     return (  
-        <div>ClickButton</div>
+        <div onClick={props.handleClick}>ClickButton</div>
     );
 }
  
