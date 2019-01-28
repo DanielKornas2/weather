@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import ClickButton from '../../components/ClickButton/ClickButton';
 import SearchCity from '../../components/SearchCity/SearchCity';
 
 const APIKey = 'd51e075ba6694ea2f6e480ed41f66ee7';
@@ -8,7 +7,7 @@ const APIKey = 'd51e075ba6694ea2f6e480ed41f66ee7';
 class WeatherBox extends Component {
 
   state = {
-    city: "",
+    city: "Kraków",
     isCityCorrect: true,
     weather: {
       humidity: null,
@@ -60,28 +59,31 @@ class WeatherBox extends Component {
     })
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('click')
-    
+  componentDidMount(){
+    // first fetch - default city in app is Kraków
     this.fetchData();
-    
+  }
+
+  componentDidUpdate(prevProps,prevState){
+    if (prevState.city !== this.state.city){
+      this.fetchData();
+    }
   }
 
    render() {
 
-    const {city, weather} = this.state;
+    const {city, isCityCorrect, weather} = this.state;
+
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div>  
         <SearchCity city={city} handleChange={this.handleChange} />
-        <ClickButton />
-        </form>
-        {weather.humidity ? 
+        {isCityCorrect ? 
           <ul>
-            <li>{city}</li>
-            <li>{weather.temperature}</li>
-            <li>{weather.humidity}%</li>
+            <li>Miasto: {city}</li>
+            <li>Temperatura: {weather.temperature}&#8451;</li>
+            <li>Wilgotność: {weather.humidity}%</li>
+            <li>Wschód słońca: {weather.sunrise}</li>
+            <li>Zachód słońca: {weather.sunset}</li>
           </ul>
         :
           <p>Podaj prawidłową nazwę miasta</p>
