@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import SearchCity from '../../components/SearchCity/SearchCity';
+import styles from './WeatherBox.module.css';
 
 const APIKey = 'd51e075ba6694ea2f6e480ed41f66ee7';
 
@@ -78,12 +79,12 @@ class WeatherBox extends Component {
       <div>  
         <SearchCity city={city} handleChange={this.handleChange} />
         {isCityCorrect ? 
-          <ul>
-            <li>Miasto: {city}</li>
-            <li>Temperatura: {weather.temperature}&#8451;</li>
-            <li>Wilgotność: {weather.humidity}%</li>
-            <li>Wschód słońca: {weather.sunrise}</li>
-            <li>Zachód słońca: {weather.sunset}</li>
+          <ul className={styles.result}>
+            <li><strong>Miasto:</strong> {city}</li>
+            <li><strong>Temperatura:</strong> {weather.temperature}&#8451;</li>
+            <li><strong>Wilgotność:</strong> {weather.humidity}%</li>
+            <li><strong>Wschód słońca:</strong> {weather.sunrise}</li>
+            <li><strong>Zachód słońca:</strong> {weather.sunset}</li>
           </ul>
         :
           <p>Podaj prawidłową nazwę miasta</p>

@@ -1,0 +1,11 @@
+.searchBox {
+    text-align: center;
+}
+
+.result {
+    margin-top: 40px;
+}
+
+.result li {
+    list-style-type: none;
+}
