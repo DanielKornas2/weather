@@ -21,7 +21,7 @@ class WeatherBox extends Component {
 
   fetchData = () => {
 
-    const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${this.state.city}&appid=${APIKey}&units=metric`
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${this.state.city}&appid=${APIKey}&units=metric`
 
     fetch (apiUrl)
       .then(response => {

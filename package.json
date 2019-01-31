@@ -2,7 +2,7 @@
   "name": "weather",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://danielkornas2.github.io/weather-app/",
+  "homepage": "https://danielkornas2.github.io/weather/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
